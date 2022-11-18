@@ -21,6 +21,9 @@ namespace SportsStore
 			//app.MapGet("/", () => "Hello World!");
 
 			app.UseStaticFiles();
+
+			app.MapControllerRoute("pagination", "Products/Page{productPage}",
+				new { Controller = "Home", action = "Index" });
 			app.MapDefaultControllerRoute();
 
 			SeedData.EnsurePopulated(app);
