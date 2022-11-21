@@ -1,3 +1,35 @@
 ﻿@page
+@model CartModel
 
-<h4>Cart Page</h4>
+<h2>Your Cart</h2>
+<table class="table table-bordered table-striped">
+	<thead>
+		<tr>
+			<th>Quantity</th>
+			<th>Item</th>
+			<th class="text-right">Price</th>
+			<th class="text-right">Subtotal</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var line in Model.Cart.Lines ?? Enumerable.Empty<CartLine>())
+		{
+			<tr>
+				<td class="text-center">@line.Quantity</td>
+				<td>@line.Product.Name</td>
+				<td>@line.Product.Price.ToString("c", new System.Globalization.CultureInfo("en-US"))</td>
+				<td>@((line.Quantity * line.Product.Price).ToString("c", new System.Globalization.CultureInfo("en-US")))</td>
+			</tr>
+		}
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="3" class="text-lg-end">Total:</td>
+			<td>@Model.Cart.ComputeTotalValue().ToString("c", new System.Globalization.CultureInfo("en-US"))</td>
+		</tr>
+	</tfoot>
+</table>
+
+<div class="text-center">
+	<a class="btn btn-primary" href="@Model.ReturnUrl">Continue Shopping</a>
+</div>
