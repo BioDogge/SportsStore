@@ -21,6 +21,9 @@ namespace SportsStore
 			builder.Services.AddDistributedMemoryCache();
 			builder.Services.AddSession();
 
+			builder.Services.AddScoped(c => SessionCart.GetCart(c));
+			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 			var app = builder.Build();
 
 			//app.MapGet("/", () => "Hello World!");
