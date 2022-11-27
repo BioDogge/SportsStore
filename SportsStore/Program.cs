@@ -25,6 +25,8 @@ namespace SportsStore
 			builder.Services.AddScoped(c => SessionCart.GetCart(c));
 			builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
+			builder.Services.AddServerSideBlazor();
+
 			var app = builder.Build();
 
 			//app.MapGet("/", () => "Hello World!");
@@ -46,6 +48,8 @@ namespace SportsStore
 
 			app.MapDefaultControllerRoute();
 			app.MapRazorPages();
+			app.MapBlazorHub();
+			app.MapFallbackToPage("/admin/{*catchall}", "/Admin/Index");
 
 			//SeedData.EnsurePopulated(app);
 
